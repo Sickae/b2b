@@ -192,6 +192,9 @@ _Pvt_Extensions/
 ModelManifest.xml
 .vs
 
+# JetBrains Rider
+.idea/
+
 # Others
 .vagrant/
 Ignore/
