@@ -1,22 +1,33 @@
-﻿using System;
-using B2B.Shared.Dto.User;
-using MediatR;
+﻿using AutoMapper;
+using B2B.DataAccess.Entities;
+using B2B.Logic.BusinessLogic.Base.Query;
+using B2B.Shared.Dto;
+using NHibernate;
+using NHibernate.Criterion;
 
 namespace B2B.Logic.BusinessLogic.User.Query
 {
-    public class UserQuery : IRequest<UserDtoBase>
+    public class UserQuery : EntityQueryBase<UserDto>
     {
-        public int? Id { get; set; }
         public string UserName { get; set; }
         public string InGameName { get; set; }
     }
 
-    // TODO: More abstraction needed.
-    public class UserQueryHandler : RequestHandler<UserQuery, UserDtoBase>
+    public class UserQueryHandler : EntityQueryHandlerBase<UserEntity, UserDto, UserQuery>
     {
-        protected override UserDtoBase Handle(UserQuery request)
+        public UserQueryHandler(ISession session, IMapper mapper) : base(session, mapper)
         {
-            throw new NotImplementedException();
+        }
+
+        protected override void SetupWhere(IQueryOver<UserEntity, UserEntity> queryOver, UserQuery request)
+        {
+            if (!string.IsNullOrEmpty(request.UserName))
+                queryOver = queryOver.Where(Restrictions.InsensitiveLike(Projections.Property(() => RootAlias.UserName),
+                    request.UserName, MatchMode.Anywhere));
+
+            if (!string.IsNullOrEmpty(request.InGameName))
+                queryOver = queryOver.Where(Restrictions.InsensitiveLike(
+                    Projections.Property(() => RootAlias.InGameName), request.InGameName, MatchMode.Anywhere));
         }
     }
 }
