@@ -6,15 +6,23 @@ namespace B2B.DataAccess.Entities
     public class UserEntity : LogicalEntityBase
     {
         [Unique]
+        public virtual string InGameName { get; set; }
+
+        #region Identity
+
+        [Unique]
         public virtual string UserName { get; set; }
 
         public virtual string PasswordHash { get; set; }
 
-        [Unique]
-        public virtual string InGameName { get; set; }
+        public virtual string SecurityStamp { get; set; }
 
-        private void Test(UserEntity entity)
-        {
-        }
+        public virtual bool LockoutEnabled { get; set; }
+
+        public virtual int AccessFailedCount { get; set; }
+
+        public virtual long? LockoutEndUnixTimeMilliseconds { get; set; }
+
+        #endregion
     }
 }
