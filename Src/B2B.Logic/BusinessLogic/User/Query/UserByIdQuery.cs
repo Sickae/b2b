@@ -8,9 +8,6 @@ namespace B2B.Logic.BusinessLogic.User.Query
 {
     public class UserByIdQuery : SingleEntityQueryBase<UserEntity, UserDto>
     {
-        public UserByIdQuery(int id) : base(id)
-        {
-        }
     }
 
     public class UserByIdQueryHandler : SingleEntityQueryHandlerBase<UserEntity, UserDto>

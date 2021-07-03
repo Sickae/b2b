@@ -8,9 +8,6 @@ namespace B2B.Logic.BusinessLogic.UserClaim.Command
 {
     public class CreateUserClaimCommand : CreateEntityCommandBase<UserClaimDto>
     {
-        public CreateUserClaimCommand(UserClaimDto dto) : base(dto)
-        {
-        }
     }
 
     public class

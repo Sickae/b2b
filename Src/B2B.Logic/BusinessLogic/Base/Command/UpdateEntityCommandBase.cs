@@ -11,15 +11,6 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         where TDto : IDto
     {
         public TDto Dto { get; set; }
-
-        protected UpdateEntityCommandBase()
-        {
-        }
-
-        protected UpdateEntityCommandBase(TDto dto)
-        {
-            Dto = dto;
-        }
     }
 
     public abstract class

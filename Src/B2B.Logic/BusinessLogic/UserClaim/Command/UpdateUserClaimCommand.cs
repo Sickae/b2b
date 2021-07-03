@@ -8,9 +8,6 @@ namespace B2B.Logic.BusinessLogic.UserClaim.Command
 {
     public class UpdateUserClaimCommand : UpdateEntityCommandBase<UserClaimDto>
     {
-        public UpdateUserClaimCommand(UserClaimDto dto) : base(dto)
-        {
-        }
     }
 
     public class

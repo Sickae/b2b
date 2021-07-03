@@ -15,15 +15,6 @@ namespace B2B.Logic.BusinessLogic.Base.Command
     public abstract class CreateEntityCommandBase<TDto> : IRequest<CreateEntityCommandResult>
         where TDto : IDto
     {
-        protected CreateEntityCommandBase()
-        {
-        }
-
-        protected CreateEntityCommandBase(TDto dto)
-        {
-            Dto = dto;
-        }
-
         public TDto Dto { get; set; }
     }
 
