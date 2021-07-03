@@ -1,18 +1,20 @@
-﻿using B2B.Shared.Dto.User;
+﻿using System;
+using B2B.Shared.Dto.User;
 using MediatR;
-using System;
 
 namespace B2B.Logic.BusinessLogic.User.Query
 {
-    public class UserQuery : IRequest<UserDto>
+    public class UserQuery : IRequest<UserDtoBase>
     {
         public int? Id { get; set; }
+        public string UserName { get; set; }
+        public string InGameName { get; set; }
     }
 
     // TODO: More abstraction needed.
-    public class UserQueryHandler : RequestHandler<UserQuery, UserDto>
+    public class UserQueryHandler : RequestHandler<UserQuery, UserDtoBase>
     {
-        protected override UserDto Handle(UserQuery request)
+        protected override UserDtoBase Handle(UserQuery request)
         {
             throw new NotImplementedException();
         }

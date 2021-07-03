@@ -2,7 +2,8 @@
 
 namespace B2B.DataAccess.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute
-    { }
+    {
+    }
 }

@@ -6,8 +6,8 @@ namespace B2B.Shared.Interfaces
     {
         int Id { get; }
 
-        DateTime CreationDateUTC { get; }
+        DateTime CreationDateUtc { get; }
 
-        DateTime ModificationDateUTC { get; }
+        DateTime ModificationDateUtc { get; }
     }
 }

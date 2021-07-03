@@ -2,11 +2,9 @@
 
 namespace B2B.DataAccess.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class TextAttribute : Attribute
     {
-        public int MaxLength { get; set; }
-
         public TextAttribute()
         {
             MaxLength = int.MaxValue;
@@ -16,5 +14,7 @@ namespace B2B.DataAccess.Attributes
         {
             MaxLength = maxLength;
         }
+
+        public int MaxLength { get; set; }
     }
 }

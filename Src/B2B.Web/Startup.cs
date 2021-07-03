@@ -1,3 +1,7 @@
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using B2B.Logic.BusinessLogic.User.Query;
 using B2B.Logic.Extensions;
 using B2B.Web.Infrastructure.ModelBinders;
@@ -10,10 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NHibernate;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using WebpackTag;
 
 namespace B2B.Web
@@ -30,10 +30,7 @@ namespace B2B.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
-            {
-                options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
-            })
+            services.AddMvc(options => { options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider()); })
                 .AddRazorRuntimeCompilation()
                 .AddFluentValidation(cfg => ConfigureFluentValidation(cfg));
 
@@ -76,8 +73,8 @@ namespace B2B.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -92,6 +89,7 @@ namespace B2B.Web
                     var name = member.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
                     return name ?? member.Name;
                 }
+
                 return null;
             };
         }

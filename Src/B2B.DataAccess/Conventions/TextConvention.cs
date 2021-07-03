@@ -11,13 +11,9 @@ namespace B2B.DataAccess.Conventions
             var maxLength = attribute.MaxLength;
 
             if (instance.Property.PropertyType == typeof(string) && maxLength == int.MaxValue)
-            {
                 instance.CustomSqlType("text");
-            }
             else
-            {
                 instance.Length(maxLength);
-            }
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using System;
 
 namespace B2B.Web.Infrastructure.ModelBinders
 {
     /// <summary>
-    /// https://stackoverflow.com/a/46308876
+    ///     https://stackoverflow.com/a/46308876
     /// </summary>
     public class DateTimeModelBinderProvider : IModelBinderProvider
     {

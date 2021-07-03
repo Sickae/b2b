@@ -2,7 +2,7 @@
 
 namespace B2B.Shared.Dto
 {
-    public abstract class Dto : IDto
+    public abstract class DtoBase : IDto
     {
         public int Id { get; set; }
     }

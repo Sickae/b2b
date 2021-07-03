@@ -8,7 +8,7 @@ namespace B2B.DataAccess.Helpers
         {
             name = name.Replace("Entity", "");
             name = AccentRemover.RemoveAccents(name);
-            name = Regex.Replace(name, "[A-Z]+", x => x.Value[0].ToString().ToUpper() + x.Value.Substring(1).ToLower());
+            name = Regex.Replace(name, "[A-Z]+", x => x.Value[0].ToString().ToUpper() + x.Value[1..].ToLower());
 
             Match m;
             while ((m = Regex.Match(name, "[A-Z]")).Success)

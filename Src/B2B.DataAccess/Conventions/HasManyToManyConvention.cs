@@ -1,7 +1,7 @@
-﻿using B2B.DataAccess.Helpers;
+﻿using System.Globalization;
+using B2B.DataAccess.Helpers;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
-using System.Globalization;
 
 namespace B2B.DataAccess.Conventions
 {
@@ -13,9 +13,9 @@ namespace B2B.DataAccess.Conventions
             var entityName = NameConverter.ConvertName(instance.EntityType.Name);
             var childTypeName = NameConverter.ConvertName(instance.ChildType.Name);
 
-            var tableName = string.CompareOrdinal(entityName, childTypeName) < 0 ?
-                string.Format(CultureInfo.InvariantCulture, "{0}_{1}", entityName, childTypeName) :
-                string.Format(CultureInfo.InvariantCulture, "{0}_{1}", childTypeName, entityName);
+            var tableName = string.CompareOrdinal(entityName, childTypeName) < 0
+                ? string.Format(CultureInfo.InvariantCulture, "{0}_{1}", entityName, childTypeName)
+                : string.Format(CultureInfo.InvariantCulture, "{0}_{1}", childTypeName, entityName);
             var keyName = string.Format(CultureInfo.InvariantCulture, "fk_{0}_{1}", memberName, entityName);
             var otherKeyName = string.Format(CultureInfo.InvariantCulture, "fk_{0}_{1}", entityName, memberName);
             var columnName = string.Format(CultureInfo.InvariantCulture, "{0}_id", entityName);

@@ -32,12 +32,12 @@ namespace B2B.DataAccess.SessionFactory
             return configuration;
         }
 
-        public static Configuration SetupConfig(FluentConfiguration config)
+        private static Configuration SetupConfig(FluentConfiguration config)
         {
             config = config.Mappings(m => m.AutoMappings.Add(
-                AutoMap.AssemblyOf<Entity>(new StoreConfiguration())
-                    .IgnoreBase<Entity>()
-                    .IgnoreBase<LogicalEntity>()
+                AutoMap.AssemblyOf<EntityBase>(new StoreConfiguration())
+                    .IgnoreBase<EntityBase>()
+                    .IgnoreBase<LogicalEntityBase>()
                     .Conventions.Add<HasManyConvention>()
                     .Conventions.Add<HasManyToManyConvention>()
                     .Conventions.Add<NotNullConvention>()

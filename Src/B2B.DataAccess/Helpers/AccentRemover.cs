@@ -2,16 +2,16 @@
 {
     public static class AccentRemover
     {
-        private const string _accents = "áéíóöőúüűÁÉÍÓÖŐÚÜŰ";
-        private const string _accentsReplacements = "aeiooouuuAEIOOOUUU";
+        private const string Accents = "áéíóöőúüűÁÉÍÓÖŐÚÜŰ";
+        private const string AccentsReplacements = "aeiooouuuAEIOOOUUU";
 
         public static string RemoveAccents(string str)
         {
             for (var i = 0; i < str.Length; i++)
             {
-                var idx = _accents.IndexOf(str[i]);
+                var idx = Accents.IndexOf(str[i]);
                 if (idx >= 0)
-                    str.Replace(str[i], _accentsReplacements[idx]);
+                    str.Replace(str[i], AccentsReplacements[idx]);
             }
 
             return str;

@@ -2,7 +2,8 @@
 
 namespace B2B.DataAccess.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class ComponentAttribute : Attribute
-    { }
+    {
+    }
 }

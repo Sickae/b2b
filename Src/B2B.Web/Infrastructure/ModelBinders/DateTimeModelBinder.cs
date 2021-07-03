@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace B2B.Web.Infrastructure.ModelBinders
 {
     /// <summary>
-    /// https://stackoverflow.com/a/46308876
+    ///     https://stackoverflow.com/a/46308876
     /// </summary>
     public class DateTimeModelBinder : IModelBinder
     {
-        private static readonly string[] _dateTimeFormats = { "yyyyMMdd'T'HHmmss.FFFFFFFK", "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK" };
+        private static readonly string[] _dateTimeFormats =
+            {"yyyyMMdd'T'HHmmss.FFFFFFFK", "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK"};
 
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {

@@ -1,7 +1,7 @@
-﻿using B2B.DataAccess.Helpers;
+﻿using System.Globalization;
+using B2B.DataAccess.Helpers;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
-using System.Globalization;
 
 namespace B2B.DataAccess.Conventions
 {

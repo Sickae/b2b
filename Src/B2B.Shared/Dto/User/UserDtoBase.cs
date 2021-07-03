@@ -1,6 +1,6 @@
 ﻿namespace B2B.Shared.Dto.User
 {
-    public class UserDto : Dto
+    public class UserDtoBase : DtoBase
     {
         public string Username { get; set; }
     }
