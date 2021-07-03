@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace B2B.Logic.Extensions
+namespace B2B.Logic.Wireup
 {
-    public static class WebServiceExtensions
+    public static class LogicServiceExtensions
     {
         public static void CreateSessionFactory(this IServiceCollection services, IConfiguration configuration)
         {
@@ -12,6 +12,11 @@ namespace B2B.Logic.Extensions
             var cfg = SessionFactory.BuildConfiguration(connectionString);
             var sessionFactory = cfg.BuildSessionFactory();
             services.AddSingleton(sessionFactory);
+        }
+
+        public static IServiceCollection AddLogicServiceCollection(this IServiceCollection services)
+        {
+            return services;
         }
     }
 }

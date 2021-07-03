@@ -4,6 +4,6 @@ namespace B2B.DataAccess.Entities.Base
 {
     public abstract class LogicalEntityBase : EntityBase, ILogicalDeletableEntity
     {
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
     }
 }

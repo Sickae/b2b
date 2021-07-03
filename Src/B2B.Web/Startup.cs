@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using B2B.Logic.BusinessLogic.User.Query;
-using B2B.Logic.Extensions;
+using B2B.Logic.Wireup;
 using B2B.Web.Infrastructure.ModelBinders;
 using FluentValidation;
 using FluentValidation.AspNetCore;

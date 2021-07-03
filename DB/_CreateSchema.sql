@@ -1,1 +1,0 @@
-create table "user" (id  serial, username varchar(255), creation_date_utc timestamp, modification_date_utc timestamp, primary key (id))

@@ -19,19 +19,18 @@ namespace B2B.DataAccess.Helpers
                 var outputFolder = Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory!)
                     .Parent?.Parent?.Parent?.Parent?.Parent?.FullName ?? string.Empty, "DB");
 
-                if (Directory.Exists(outputFolder))
-                {
-                    var script = new List<string>(config.GenerateSchemaUpdateScript(new PostgreSQL83Dialect(),
-                        new DatabaseMetadata(database.BuildSessionFactory().OpenSession().Connection,
-                            new PostgreSQL83Dialect())));
+                if (!Directory.Exists(outputFolder)) return;
 
-                    File.WriteAllText(Path.Combine(outputFolder, "_UpdateSchema.sql"),
-                        string.Join(";" + Environment.NewLine, script));
+                var script = new List<string>(config.GenerateSchemaUpdateScript(new PostgreSQL83Dialect(),
+                    new DatabaseMetadata(database.BuildSessionFactory().OpenSession().Connection,
+                        new PostgreSQL83Dialect())));
 
-                    script = new List<string>(config.GenerateSchemaCreationScript(new PostgreSQL83Dialect()));
-                    File.WriteAllText(Path.Combine(outputFolder, "_CreateSchema.sql"),
-                        string.Join(";" + Environment.NewLine, script));
-                }
+                File.WriteAllText(Path.Combine(outputFolder, "_UpdateSchema.sql"),
+                    string.Join(";" + Environment.NewLine, script));
+
+                script = new List<string>(config.GenerateSchemaCreationScript(new PostgreSQL83Dialect()));
+                File.WriteAllText(Path.Combine(outputFolder, "02_CreateSchema.sql"),
+                    string.Join(";" + Environment.NewLine, script));
             }
             catch (Exception e)
             {
