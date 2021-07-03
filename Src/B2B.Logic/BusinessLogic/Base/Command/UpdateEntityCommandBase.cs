@@ -23,8 +23,7 @@ namespace B2B.Logic.BusinessLogic.Base.Command
     }
 
     public abstract class
-        UpdateEntityCommandHandlerBase<TEntity, TDto, TRequest> : RequestHandler<TRequest,
-            ICommandResult>
+        UpdateEntityCommandHandlerBase<TEntity, TDto, TRequest> : RequestHandler<TRequest, ICommandResult>
         where TEntity : EntityBase
         where TDto : IDto
         where TRequest : IRequest<ICommandResult>
