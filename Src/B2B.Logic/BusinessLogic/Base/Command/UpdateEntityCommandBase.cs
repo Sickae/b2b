@@ -1,6 +1,8 @@
 ﻿using System;
 using AutoMapper;
 using B2B.DataAccess.Entities.Base;
+using B2B.Logic.BusinessLogic.Base.Service;
+using B2B.Shared.Enums;
 using B2B.Shared.Interfaces;
 using MediatR;
 using NHibernate;
@@ -20,12 +22,14 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         where TRequest : IRequest<ICommandResult>
     {
         private readonly IMapper _mapper;
+        private readonly LoggingService _loggingService;
         private readonly ISession _session;
 
-        protected UpdateEntityCommandHandlerBase(ISession session, IMapper mapper)
+        protected UpdateEntityCommandHandlerBase(ISession session, IMapper mapper, LoggingService loggingService)
         {
             _session = session;
             _mapper = mapper;
+            _loggingService = loggingService;
         }
 
         protected override ICommandResult Handle(TRequest request)
@@ -50,16 +54,20 @@ namespace B2B.Logic.BusinessLogic.Base.Command
 
             entity = MapToEntity(updateCommand.Dto, entity);
 
-            var integrityResult = CommandSecurityService<TEntity>.SecureEntityIntegration(_session, entity);
+            var integrityResult = CommandSecurityService.SecureEntityIntegration(_session, entity);
             if (!integrityResult.Success) return integrityResult;
 
             var securityResult = SetupSecurityCheck(entity, request);
             if (!securityResult.Success) return securityResult;
 
+            CommandSecurityService.LoadReferences(updateCommand.Dto, entity, _session);
+
             BeforeSave(entity, request);
 
             entity.ModificationDateUtc = DateTime.UtcNow;
             _session.Merge(entity);
+
+            _loggingService.LogOperation(entity, LogOperationType.Modify);
 
             AfterSave(entity, request);
 

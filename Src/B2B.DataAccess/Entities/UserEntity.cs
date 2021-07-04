@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using B2B.DataAccess.Attributes;
 using B2B.DataAccess.Entities.Base;
 
 namespace B2B.DataAccess.Entities
 {
+    [AuditLog]
     public class UserEntity : LogicalEntityBase
     {
         [Unique]
@@ -15,8 +17,10 @@ namespace B2B.DataAccess.Entities
         [Unique]
         public virtual string UserName { get; set; }
 
+        [SkipLog]
         public virtual string PasswordHash { get; set; }
 
+        [SkipLog]
         public virtual string SecurityStamp { get; set; }
 
         public virtual bool LockoutEnabled { get; set; }

@@ -1,5 +1,7 @@
 ﻿using System;
 using B2B.DataAccess.Entities.Base;
+using B2B.Logic.BusinessLogic.Base.Service;
+using B2B.Shared.Enums;
 using B2B.Shared.Interfaces;
 using MediatR;
 using NHibernate;
@@ -16,10 +18,12 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         where TRequest : IRequest<ICommandResult>
     {
         private readonly ISession _session;
+        private readonly LoggingService _loggingService;
 
-        protected DeleteEntityCommandHandlerBase(ISession session)
+        protected DeleteEntityCommandHandlerBase(ISession session, LoggingService loggingService)
         {
             _session = session;
+            _loggingService = loggingService;
         }
 
         protected override ICommandResult Handle(TRequest request)
@@ -51,6 +55,8 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             }
             else
                 _session.Delete(deleteCommand.Id);
+
+            _loggingService.LogOperation(entity, LogOperationType.Delete);
 
             AfterDelete(entity, request);
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using AutoMapper;
 using B2B.DataAccess.Entities.Base;
+using B2B.Logic.BusinessLogic.Base.Service;
+using B2B.Shared.Enums;
 using B2B.Shared.Interfaces;
 using MediatR;
 using NHibernate;
@@ -25,12 +27,14 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         where TRequest : IRequest<CreateEntityCommandResult>
     {
         private readonly IMapper _mapper;
+        private readonly LoggingService _loggingService;
         private readonly ISession _session;
 
-        protected CreateEntityCommandHandlerBase(ISession session, IMapper mapper)
+        protected CreateEntityCommandHandlerBase(ISession session, IMapper mapper, LoggingService loggingService)
         {
             _session = session;
             _mapper = mapper;
+            _loggingService = loggingService;
         }
 
         protected override CreateEntityCommandResult Handle(TRequest request)
@@ -45,9 +49,9 @@ namespace B2B.Logic.BusinessLogic.Base.Command
                 throw new InvalidCastException($"{nameof(createCommand.Dto.Id)} must be set to 0.");
 
             var entity = _mapper.Map<TEntity>(createCommand.Dto);
-            CommandSecurityService<TEntity>.SetDefaultValues(entity);
+            CommandSecurityService.SetDefaultValues(entity);
 
-            var integrityResult = CommandSecurityService<TEntity>.SecureEntityIntegration(_session, entity);
+            var integrityResult = CommandSecurityService.SecureEntityIntegration(_session, entity);
             if (!integrityResult.Success)
                 return new CreateEntityCommandResult
                 {
@@ -63,8 +67,14 @@ namespace B2B.Logic.BusinessLogic.Base.Command
                     ErrorMessage = securityResult.ErrorMessage
                 };
 
+            CommandSecurityService.LoadReferences(createCommand.Dto, entity, _session);
+
             BeforeSave(entity, request);
+
             _session.Save(entity);
+
+            _loggingService.LogOperation(entity, LogOperationType.Create);
+
             AfterSave(entity, request);
 
             return new CreateEntityCommandResult

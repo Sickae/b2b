@@ -1,8 +1,9 @@
 ﻿using B2B.DataAccess.SessionFactory;
+using B2B.Logic.BusinessLogic.Base.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace B2B.Logic.Wireup
+namespace B2B.Logic.Infrastructure
 {
     public static class LogicServiceExtensions
     {
@@ -16,6 +17,7 @@ namespace B2B.Logic.Wireup
 
         public static IServiceCollection AddLogicServiceCollection(this IServiceCollection services)
         {
+            services.AddScoped<LoggingService>();
             return services;
         }
     }
