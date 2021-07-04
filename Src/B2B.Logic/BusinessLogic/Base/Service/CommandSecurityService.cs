@@ -2,16 +2,17 @@
 using System.Linq;
 using B2B.DataAccess.Attributes;
 using B2B.DataAccess.Entities.Base;
+using B2B.Logic.BusinessLogic.Base.Command;
 using B2B.Shared.Interfaces;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace B2B.Logic.BusinessLogic.Base.Command
+namespace B2B.Logic.BusinessLogic.Base.Service
 {
-    public static class CommandSecurityService<TEntity>
-        where TEntity : EntityBase
+    public static class CommandSecurityService
     {
-        public static void SetDefaultValues(TEntity entity)
+        public static void SetDefaultValues<TEntity>(TEntity entity)
+            where TEntity : EntityBase
         {
             entity.CreationDateUtc = DateTime.UtcNow;
             entity.ModificationDateUtc = DateTime.UtcNow;
@@ -20,7 +21,30 @@ namespace B2B.Logic.BusinessLogic.Base.Command
                 ((ILogicalDeletableEntity) entity).IsDeleted = false;
         }
 
-        public static ICommandResult SecureEntityIntegration(ISession session, TEntity entity)
+        public static void LoadReferences<TDto, TEntity>(TDto dto, TEntity entity, ISession session)
+            where TDto : IDto
+            where TEntity : EntityBase
+        {
+            var referenceProperties = typeof(TEntity).GetProperties()
+                .Where(x => x.PropertyType.IsClass && x.PropertyType.Namespace != "System")
+                .ToArray();
+            var dtoProperties = typeof(TDto).GetProperties()
+                .Where(x => x.Name.EndsWith("Id"))
+                .ToArray();
+
+            foreach (var prop in referenceProperties)
+            {
+                var idProp = dtoProperties.FirstOrDefault(x => x.Name == $"{prop.Name}Id");
+                var id = idProp?.GetValue(dto);
+                var loadedEntity = session.Load(prop.PropertyType.Name, id);
+
+                if (loadedEntity != null)
+                    prop.SetValue(entity, loadedEntity);
+            }
+        }
+
+        public static ICommandResult SecureEntityIntegration<TEntity>(ISession session, TEntity entity)
+            where TEntity : EntityBase
         {
             var uniqueResult = SecureLogicalUniqueConstraint(session, entity);
             if (!uniqueResult.Success) return uniqueResult;
@@ -28,7 +52,8 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             return new CommandResult {Success = true};
         }
 
-        private static ICommandResult SecureLogicalUniqueConstraint(ISession session, TEntity entity)
+        private static ICommandResult SecureLogicalUniqueConstraint<TEntity>(ISession session, TEntity entity)
+            where TEntity : EntityBase
         {
             if (!typeof(ILogicalDeletableEntity).IsAssignableFrom(typeof(TEntity)))
                 return new CommandResult {Success = true};
