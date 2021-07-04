@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace B2B.DataAccess.Helpers
 {
@@ -6,7 +7,12 @@ namespace B2B.DataAccess.Helpers
     {
         public static string ConvertName(string name)
         {
-            name = name.Replace("Entity", "");
+            if (name.EndsWith("Entity"))
+            {
+                var idx = name.LastIndexOf("Entity", StringComparison.Ordinal);
+                name = name[0..idx];
+            }
+
             name = AccentRemover.RemoveAccents(name);
             name = Regex.Replace(name, "[A-Z]+", x => x.Value[0].ToString().ToUpper() + x.Value[1..].ToLower());
 

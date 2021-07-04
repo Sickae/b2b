@@ -5,8 +5,8 @@ using System.Reflection;
 using AutoMapper;
 using B2B.Logic.BusinessLogic.User.Query;
 using B2B.Logic.Identity;
+using B2B.Logic.Infrastructure;
 using B2B.Logic.Mappings;
-using B2B.Logic.Wireup;
 using B2B.Web.Infrastructure;
 using B2B.Web.Infrastructure.ModelBinders;
 using FluentValidation;
@@ -39,6 +39,9 @@ namespace B2B.Web
                 .AddFluentValidation(cfg => ConfigureFluentValidation(cfg));
 
             services.CreateSessionFactory(Configuration);
+
+            services.AddWebServiceCollection();
+            services.AddLogicServiceCollection();
 
             WebServiceSetup.ConfigureAuthentication(services);
 

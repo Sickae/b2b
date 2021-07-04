@@ -1,7 +1,6 @@
 ﻿using System;
 using B2B.Logic.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+using B2B.Shared.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +8,13 @@ namespace B2B.Web.Infrastructure
 {
     public static class WebServiceSetup
     {
+        public static IServiceCollection AddWebServiceCollection(this IServiceCollection services)
+        {
+            services.AddScoped<IAppContext, AppContext>();
+
+            return services;
+        }
+
         public static void ConfigureAuthentication(IServiceCollection services)
         {
             // TODO: set properly
