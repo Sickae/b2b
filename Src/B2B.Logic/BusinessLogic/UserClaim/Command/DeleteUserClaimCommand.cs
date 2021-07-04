@@ -10,8 +10,7 @@ namespace B2B.Logic.BusinessLogic.UserClaim.Command
     }
 
     public class
-        DeleteUserClaimCommandHandler : DeleteEntityCommandHandlerBase<UserClaimEntity, UserClaimDto,
-            DeleteUserClaimCommand>
+        DeleteUserClaimCommandHandler : DeleteEntityCommandHandlerBase<UserClaimEntity, DeleteUserClaimCommand>
     {
         public DeleteUserClaimCommandHandler(ISession session) : base(session)
         {

@@ -11,14 +11,13 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         public int Id { get; set; }
     }
 
-    public class DeleteEntityCommandHandlerBase<TEntity, TDto, TRequest> : RequestHandler<TRequest, ICommandResult>
+    public class DeleteEntityCommandHandlerBase<TEntity, TRequest> : RequestHandler<TRequest, ICommandResult>
         where TEntity : EntityBase
-        where TDto : IDto
         where TRequest : IRequest<ICommandResult>
     {
         private readonly ISession _session;
 
-        public DeleteEntityCommandHandlerBase(ISession session)
+        protected DeleteEntityCommandHandlerBase(ISession session)
         {
             _session = session;
         }
@@ -28,7 +27,12 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             if (request is not DeleteEntityCommandBase deleteCommand)
                 throw new InvalidOperationException();
 
-            var entity = _session.Get<TEntity>(deleteCommand.Id);
+            var isLogicalEntity = typeof(ILogicalDeletableEntity).IsAssignableFrom(typeof(TEntity));
+            var entity = isLogicalEntity
+                ? _session.QueryOver<TEntity>().Where(x => !((ILogicalDeletableEntity) x).IsDeleted)
+                    .SingleOrDefault()
+                : _session.Get<TEntity>(deleteCommand.Id);
+
             if (entity == null)
                 return new CommandResult
                 {
@@ -37,10 +41,19 @@ namespace B2B.Logic.BusinessLogic.Base.Command
                 };
 
             BeforeDelete(entity, request);
-            _session.Delete(deleteCommand.Id);
+
+            entity.ModificationDateUtc = DateTime.UtcNow;
+
+            if (isLogicalEntity)
+            {
+                ((ILogicalDeletableEntity) entity).IsDeleted = true;
+                _session.Merge(entity);
+            }
+            else
+                _session.Delete(deleteCommand.Id);
+
             AfterDelete(entity, request);
 
-            _session.GetCurrentTransaction().Commit();
             return new CommandResult {Success = true};
         }
 

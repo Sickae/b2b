@@ -1,0 +1,18 @@
+﻿@using B2B.Web.Controllers
+@model B2B.Web.Models.RegisterViewModel
+
+<form asp-action="@nameof(AccountController.Register)" asp-controller="Account">
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="InGameName"></label>
+        <input asp-for="InGameName" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control"/>
+    </div>
+    <button class="btn btn-success">Send</button>
+</form>

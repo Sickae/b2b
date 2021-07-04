@@ -36,8 +36,19 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             if (updateCommand.Dto == null)
                 throw new InvalidOperationException($"{nameof(updateCommand.Dto)} cannot be null.");
 
-            var entity = _mapper.Map<TEntity>(updateCommand.Dto);
-            CommandSecurityService<TEntity>.SetDefaultValues(entity);
+            var entity = typeof(ILogicalDeletableEntity).IsAssignableFrom(typeof(TEntity))
+                ? _session.QueryOver<TEntity>().Where(x => !((ILogicalDeletableEntity) x).IsDeleted)
+                    .SingleOrDefault()
+                : _session.Get<TEntity>(updateCommand.Dto.Id);
+
+            if (entity == null)
+                return new CommandResult
+                {
+                    Success = false,
+                    ErrorMessage = $"Entity with id {updateCommand.Dto.Id} cannot be found."
+                };
+
+            entity = MapToEntity(updateCommand.Dto, entity);
 
             var integrityResult = CommandSecurityService<TEntity>.SecureEntityIntegration(_session, entity);
             if (!integrityResult.Success) return integrityResult;
@@ -46,12 +57,19 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             if (!securityResult.Success) return securityResult;
 
             BeforeSave(entity, request);
+
+            entity.ModificationDateUtc = DateTime.UtcNow;
             _session.Merge(entity);
+
             AfterSave(entity, request);
 
-            _session.GetCurrentTransaction().Commit();
-
             return new CommandResult {Success = true};
+        }
+
+        protected virtual TEntity MapToEntity(TDto dto, TEntity entity)
+        {
+            _mapper.Map(dto, entity);
+            return entity;
         }
 
         protected virtual void BeforeSave(TEntity entity, TRequest request)

@@ -31,7 +31,7 @@ namespace B2B.Logic.BusinessLogic.Base.Command
         private static ICommandResult SecureLogicalUniqueConstraint(ISession session, TEntity entity)
         {
             if (!typeof(ILogicalDeletableEntity).IsAssignableFrom(typeof(TEntity)))
-                return new CommandResult {Success = false};
+                return new CommandResult {Success = true};
 
             var uniqueProperties = entity.GetType().GetProperties()
                 .Where(x => x.IsDefined(typeof(UniqueAttribute), false));

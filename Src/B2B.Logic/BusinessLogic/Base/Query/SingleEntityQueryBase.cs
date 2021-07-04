@@ -1,30 +1,22 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using B2B.Shared.Interfaces;
 using MediatR;
 using NHibernate;
 
 namespace B2B.Logic.BusinessLogic.Base.Query
 {
-    public abstract class SingleEntityQueryBase<TEntity, TDto> : IRequest<TDto>
-        where TEntity : IEntity
+    public abstract class SingleEntityQueryBase<TDto> : IRequest<TDto>
         where TDto : IDto
     {
-        protected SingleEntityQueryBase()
-        {
-        }
-
-        protected SingleEntityQueryBase(int id)
-        {
-            Id = id;
-        }
-
         public int Id { get; set; }
     }
 
     public abstract class
-        SingleEntityQueryHandlerBase<TEntity, TDto> : RequestHandler<SingleEntityQueryBase<TEntity, TDto>, TDto>
+        SingleEntityQueryHandlerBase<TEntity, TDto, TRequest> : RequestHandler<TRequest, TDto>
         where TEntity : IEntity
         where TDto : IDto
+        where TRequest : IRequest<TDto>
     {
         private readonly IMapper _mapper;
         private readonly ISession _session;
@@ -35,9 +27,12 @@ namespace B2B.Logic.BusinessLogic.Base.Query
             _mapper = mapper;
         }
 
-        protected override TDto Handle(SingleEntityQueryBase<TEntity, TDto> request)
+        protected override TDto Handle(TRequest request)
         {
-            var entity = _session.Get<TEntity>(request.Id);
+            if (request is not SingleEntityQueryBase<TDto> singleRequest)
+                throw new InvalidOperationException();
+
+            var entity = _session.Get<TEntity>(singleRequest.Id);
             return _mapper.Map<TDto>(entity);
         }
     }

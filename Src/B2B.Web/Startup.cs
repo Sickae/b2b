@@ -2,14 +2,19 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using AutoMapper;
 using B2B.Logic.BusinessLogic.User.Query;
+using B2B.Logic.Identity;
+using B2B.Logic.Mappings;
 using B2B.Logic.Wireup;
+using B2B.Web.Infrastructure;
 using B2B.Web.Infrastructure.ModelBinders;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +32,6 @@ namespace B2B.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => { options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider()); })
@@ -36,17 +40,16 @@ namespace B2B.Web
 
             services.CreateSessionFactory(Configuration);
 
+            WebServiceSetup.ConfigureAuthentication(services);
+
             services.AddScoped(x => x.GetServices<ISessionFactory>().First().OpenSession());
             services.AddScoped(x => x.GetServices<ISessionFactory>().First().OpenStatelessSession());
 
             services.AddWebpackTag();
-            services.AddMediatR(typeof(UserQueryHandler));
-
-            // authentication, authorization
-            // automapper, validators
+            services.AddMediatR(typeof(UserQueryHandler).GetTypeInfo().Assembly);
+            services.AddAutoMapper(AutoMapperConfig.Configure, AutoMapperConfig.GetAutoMapperProfileAssemblies());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,7 +70,7 @@ namespace B2B.Web
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

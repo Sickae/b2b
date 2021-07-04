@@ -67,9 +67,11 @@ namespace B2B.Logic.BusinessLogic.Base.Command
             _session.Save(entity);
             AfterSave(entity, request);
 
-            _session.GetCurrentTransaction().Commit();
-
-            return new CreateEntityCommandResult {Success = true};
+            return new CreateEntityCommandResult
+            {
+                Success = true,
+                NewEntityId = entity.Id
+            };
         }
 
         protected virtual void BeforeSave(TEntity entity, TRequest request)

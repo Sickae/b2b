@@ -9,13 +9,6 @@ namespace B2B.Logic.Identity
         public AppIdentityUserClaim()
         { }
 
-        public AppIdentityUserClaim(AppIdentityUser user, RoleConstants.UserRole role)
-        {
-            UserId = user.Id;
-            ClaimType = ClaimTypes.Role;
-            ClaimValue = role.ToString();
-        }
-
         public UserClaimDto ToClaimDto()
         {
             return new UserClaimDto()

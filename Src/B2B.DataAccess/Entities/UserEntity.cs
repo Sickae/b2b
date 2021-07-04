@@ -1,4 +1,6 @@
-﻿using B2B.DataAccess.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using B2B.DataAccess.Attributes;
 using B2B.DataAccess.Entities.Base;
 
 namespace B2B.DataAccess.Entities
@@ -21,7 +23,7 @@ namespace B2B.DataAccess.Entities
 
         public virtual int AccessFailedCount { get; set; }
 
-        public virtual long? LockoutEndUnixTimeMilliseconds { get; set; }
+        public virtual DateTime? LockoutEnd { get; set; }
 
         #endregion
     }

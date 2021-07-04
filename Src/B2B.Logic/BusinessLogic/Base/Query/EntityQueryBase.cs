@@ -39,10 +39,10 @@ namespace B2B.Logic.BusinessLogic.Base.Query
                 throw new InvalidOperationException();
 
             var queryOver = _session.QueryOver(() => RootAlias);
-            _session.SetReadOnly(RootAlias, true);
 
-            queryOver = queryOver.Where(Restrictions.In(Projections.Property(() => RootAlias.Id),
-                entityRequest.Ids.ToArray()));
+            if (entityRequest.Ids?.Count > 0)
+                queryOver = queryOver.Where(Restrictions.In(Projections.Property(() => RootAlias.Id),
+                    entityRequest.Ids.ToArray()));
 
             if (typeof(ILogicalDeletableEntity).IsAssignableFrom(typeof(TEntity)))
                 queryOver = queryOver.Where(x => !((ILogicalDeletableEntity) x).IsDeleted);

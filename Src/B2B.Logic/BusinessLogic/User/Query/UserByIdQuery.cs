@@ -6,11 +6,11 @@ using NHibernate;
 
 namespace B2B.Logic.BusinessLogic.User.Query
 {
-    public class UserByIdQuery : SingleEntityQueryBase<UserEntity, UserDto>
+    public class UserByIdQuery : SingleEntityQueryBase<UserDto>
     {
     }
 
-    public class UserByIdQueryHandler : SingleEntityQueryHandlerBase<UserEntity, UserDto>
+    public class UserByIdQueryHandler : SingleEntityQueryHandlerBase<UserEntity, UserDto, UserByIdQuery>
     {
         public UserByIdQueryHandler(ISession session, IMapper mapper) : base(session, mapper)
         {

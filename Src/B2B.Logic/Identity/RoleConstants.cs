@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using B2B.Shared.Enums;
 
 namespace B2B.Logic.Identity
 {
     public static class RoleConstants
     {
-        /// <summary>
-        /// Sorted by privileges.
-        /// </summary>
-        public enum UserRole
-        {
-            [Description("Admin")] Admin,
-
-            [Description("Manager")] Manager,
-
-            [Description("Member")] Member,
-
-            [Description("Guest")] Guest
-        }
+        public const string Admin = nameof(UserRole.Admin);
+        public const string Manager = nameof(UserRole.Manager);
+        public const string Member = nameof(UserRole.Member);
+        public const string Guest = nameof(UserRole.Guest);
 
         public static IEnumerable<UserRole> GetUserRoles => Enum.GetValues<UserRole>();
     }
