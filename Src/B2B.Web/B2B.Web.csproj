@@ -29,4 +29,9 @@
     <Folder Include="wwwroot\src\styles\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\src\js\sites\layout.ts" />
+  </ItemGroup>
+
 </Project>

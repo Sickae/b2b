@@ -8,14 +8,15 @@ module.exports = function (env) {
     const distPath = path.resolve(__dirname, 'wwwroot', 'dist');
 
     env = env || {};
-    var isProd = env.NODE_ENV === 'production';
+    let isProd = env.NODE_ENV === 'production';
     const useVersioning = true;
 
-    var config = {
+    let config = {
         mode: 'development',
         entry: {
-            layout: './wwwroot/src/js/sites/layout.js',
+            layout: './wwwroot/src/js/sites/layout.ts',
         },
+        devtool: 'inline-source-map',
         output: {
             filename: useVersioning ? '[name].bundle.[hash:6].js' : '[name].bundle.js',
             path: distPath,
@@ -45,10 +46,15 @@ module.exports = function (env) {
             new saveAssets({
                 entrypoints: true,
                 path: path.resolve(__dirname, 'wwwroot'),
-            }), 
+            }),
         ],
         module: {
             rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
+                },
                 {
                     test: /\.m?js$/,
                     exclude: /(node_modules|bower_components)/,
@@ -115,16 +121,15 @@ module.exports = function (env) {
                 }
             ],
         },
+        resolve: {
+            extensions: ['.tsx', '.ts', '.js'],
+        },
     };
 
     // Alter config for prod environment
     if (isProd) {
         config.optimization.minimize = true;
         config.mode = 'production';
-    }
-    if (!isProd) {
-        //config.devtool = "eval-source-map"; 'eval-cheap-source-map'
-        config.devtool = "source-map";
     }
 
     return config;
