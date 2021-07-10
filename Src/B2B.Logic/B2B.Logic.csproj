@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BusinessLogic\ApplicationFlow\Command" />
     <Folder Include="BusinessLogic\User\Command\" />
   </ItemGroup>
 

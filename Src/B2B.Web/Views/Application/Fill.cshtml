@@ -1,0 +1,27 @@
+﻿@using B2B.Shared.Dto.ApplicationFlow
+@model B2B.Web.Models.ApplicationFlowViewModel
+
+@foreach (var question in Model.Description.Questions)
+{
+    <div>
+        <label>@question.Text</label>
+        @switch (question.Type)
+        {
+            case ApplicationFlowQuestionType.Text:
+            {
+                <textarea></textarea>
+                break;
+            }
+            case ApplicationFlowQuestionType.Choice:
+            {
+                <div>choice</div>
+                break;
+            }
+            case ApplicationFlowQuestionType.MultiChoice:
+            {
+                <div>choice</div>
+                break;
+            }
+        }
+    </div>
+}

@@ -9,7 +9,7 @@ namespace B2B.Logic.BusinessLogic.Base.Query
     public abstract class SingleEntityQueryBase<TDto> : IRequest<TDto>
         where TDto : IDto
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
     }
 
     public abstract class

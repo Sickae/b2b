@@ -146,7 +146,7 @@ namespace B2B.DatabaseCreator
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddLogicServiceCollection();
-            serviceCollection.AddAutoMapper(AutoMapperConfig.Configure, GetAutoMapperProfileAssemblies());
+            serviceCollection.AddAutoMapper(cfg => cfg.AllowNullCollections = true, GetAutoMapperProfileAssemblies());
 
             return serviceCollection.BuildServiceProvider();
         }

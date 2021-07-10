@@ -14,11 +14,13 @@ namespace B2B.DatabaseCreator.TestDataSetup
 
         private ICollection<UserEntity> Users { get; set; }
         private ICollection<UserClaimEntity> UserClaims { get; set; }
+        private ICollection<ApplicationFlowEntity> ApplicationFlows { get; set; }
 
         public ICollection All => new object[]
             {
                 Users,
                 UserClaims,
+                ApplicationFlows,
             }
             .Where(x => x != null)
             .SelectMany(x => (IEnumerable<object>) x)
@@ -27,6 +29,7 @@ namespace B2B.DatabaseCreator.TestDataSetup
         public virtual void CreateAllTestData()
         {
             CreateUsers();
+            CreateApplicationFlows();
         }
     }
 }
