@@ -9,16 +9,15 @@ module.exports = function (env) {
 
     env = env || {};
     let isProd = env.NODE_ENV === 'production';
-    const useVersioning = true;
 
     let config = {
         mode: 'development',
         entry: {
-            layout: './wwwroot/src/js/sites/layout.ts',
+            layout: './wwwroot/src/ts/sites/layout.ts',
         },
         devtool: 'inline-source-map',
         output: {
-            filename: useVersioning ? '[name].bundle.[hash:6].js' : '[name].bundle.js',
+            filename: '[name].bundle.[contenthash:6].js',
             path: distPath,
             publicPath: '/dist/'
         },

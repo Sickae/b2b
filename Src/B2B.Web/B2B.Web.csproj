@@ -26,12 +26,14 @@
 
 
   <ItemGroup>
+    <Folder Include="wwwroot\src\ts\modules" />
     <Folder Include="wwwroot\src\styles\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\src\js\sites\layout.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\layout.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils.ts" />
   </ItemGroup>
 
 </Project>

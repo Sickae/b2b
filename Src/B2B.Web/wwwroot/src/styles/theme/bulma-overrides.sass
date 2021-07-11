@@ -1,0 +1,53 @@
+﻿@import colors
+
+// basics
+$primary: $theme-primary
+$dark: $theme-dark
+$black: $theme-black
+$info: $theme-info
+$danger: $theme-danger
+$success: $theme-success
+$light: $theme-light
+$link: $theme-link
+$warning: $theme-warning
+
+// body
+$body-background-color: $theme-dark
+$body-color: $theme-white
+
+// footer
+$footer-background-color: $body-background-color
+$footer-color: $theme-blue
+$footer-padding: 1.5rem 1.5rem 3rem
+
+// navbar
+$navbar-background-color: $theme-black
+$navbar-item-color: $theme-light
+$navbar-item-hover-background-color: darken($theme-black, 3%)
+$navbar-item-hover-color: $theme-blue-lighter
+
+// label
+$label-color: $theme-white
+
+// input
+$input-background-color: $theme-darker
+$input-color: $theme-white
+$input-placeholder-color: $theme-light
+$input-border-color: $theme-blue
+$input-hover-border-color: $theme-blue-darker
+$input-icon-color: $theme-blue-darker
+$input-icon-active-color: $theme-blue-lighter
+
+// webkit autofill
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+  border: 1px solid $input-border-color
+  -webkit-text-fill-color: $input-color
+  -webkit-box-shadow: 0 0 0 1000px $theme-info inset

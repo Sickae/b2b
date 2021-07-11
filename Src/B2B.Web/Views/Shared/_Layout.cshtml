@@ -1,79 +1,28 @@
-﻿@using System.Reflection
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Back2Basics Guild Manager</title>
-    <webpack-scripts entry="layout">
-    </webpack-scripts>
+    <webpack-scripts entry="layout"></webpack-scripts>
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 </head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-
-    <!-- Navbar -->
+<body>
+<div class="main">
     <partial name="_Navbar"/>
-    <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="/" class="brand-link">
-            @*<img src="~/lib/img/logo.png" class="brand-image"><br />*@
-            <h2 class="text-center">Back2Basics</h2>
-        </a>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Menu 1</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-question"></i>
-                            <p>Menu 2</p>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content main-content">
         @RenderBody()
     </div>
-    <!-- /.content-wrapper -->
 
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Verzió</b> @Assembly.GetExecutingAssembly().GetName().Version
+    <footer class="footer">
+        <div class="content has-text-centered">
+            Back2Basics 2021
         </div>
     </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
 </div>
 
-@RenderSection("Scripts", false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
