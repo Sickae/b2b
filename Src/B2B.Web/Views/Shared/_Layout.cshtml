@@ -9,19 +9,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 </head>
 <body>
-<div class="main">
-    <partial name="_Navbar"/>
+<section class="hero is-fullheight main-hero">
+    <div class="hero-head">
+        <partial name="_Navbar"/>
+    </div>
 
-    <div class="content main-content">
+    <div class="hero-body">
         @RenderBody()
     </div>
 
-    <footer class="footer">
+    <footer class="footer hero-foot">
         <div class="content has-text-centered">
             Back2Basics 2021
         </div>
     </footer>
-</div>
+</section>
 
 @await RenderSectionAsync("Scripts", false)
 </body>

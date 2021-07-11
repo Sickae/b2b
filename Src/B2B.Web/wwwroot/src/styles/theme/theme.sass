@@ -2,19 +2,19 @@
 @import bulma-overrides
 @import ~bulma
 
-.main
-  display: flex
-  min-height: 100vh
-  flex-direction: column
+body
+  overflow-y: scroll
+  -ms-overflow-style: none
+  scrollbar-width: none
+  &::-webkit-scrollbar
+    display: none
 
-.main-content
-  padding: 1rem
+.main-hero .navbar
+  background-color: $theme-black
 
-.section
-  flex: 1
-
-.footer
-  position: absolute
-  bottom: 0
-  width: 100%
+.main-hero footer
   max-height: 5vh
+
+
+.is-login-container
+  margin-top: -1rem
