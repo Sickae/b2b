@@ -1,6 +1,9 @@
 ﻿using System;
 using B2B.Logic.Identity;
 using B2B.Shared.Interfaces;
+using B2B.Web.Models;
+using B2B.Web.Models.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +14,9 @@ namespace B2B.Web.Infrastructure
         public static IServiceCollection AddWebServiceCollection(this IServiceCollection services)
         {
             services.AddScoped<IAppContext, AppContext>();
+
+            // Validators
+            services.AddScoped<IValidator<LoginViewModel>, LoginViewModelValidator>();
 
             return services;
         }

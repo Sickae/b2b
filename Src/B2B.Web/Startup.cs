@@ -33,7 +33,7 @@ namespace B2B.Web
         {
             services.AddMvc(options => { options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider()); })
                 .AddRazorRuntimeCompilation()
-                .AddFluentValidation(cfg => ConfigureFluentValidation(cfg));
+                .AddFluentValidation(ConfigureFluentValidation);
 
             services.CreateSessionFactory(Configuration);
 
@@ -83,18 +83,13 @@ namespace B2B.Web
 
         private void ConfigureFluentValidation(FluentValidationMvcConfiguration cfg)
         {
-            cfg.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("hu");
             ValidatorOptions.Global.DisplayNameResolver = (type, member, expression) =>
             {
-                if (member != null)
-                {
-                    var name = member.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
-                    return name ?? member.Name;
-                }
-
-                return null;
+                if (member == null) return null;
+                var name = member.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
+                return name ?? member.Name;
             };
+            cfg.DisableDataAnnotationsValidation = true;
         }
     }
 }
