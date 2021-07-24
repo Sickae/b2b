@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -14,15 +14,10 @@
         <partial name="_Navbar"/>
     </div>
 
-    <div class="hero-body">
+    <div class="hero-body is-flex-direction-column">
         @RenderBody()
     </div>
 
-    <footer class="footer hero-foot">
-        <div class="content has-text-centered">
-            Back2Basics 2021
-        </div>
-    </footer>
 </section>
 
 @await RenderSectionAsync("Scripts", false)

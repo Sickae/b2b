@@ -1,41 +1,46 @@
 ﻿@using B2B.Web.Controllers
 @model B2B.Web.Models.LoginViewModel
 
-<div class="container is-login-container">
-<p class="title has-text-centered has-text-white is-size-1">Sign In</p>
+<webpack-scripts entry="login"></webpack-scripts>
 
+<div class="container is-flex is-align-items-flex-end is-justify-content-center">
+    <p class="title has-text-centered has-text-white is-size-1 mt-6">Sign In</p>
+</div>
+<div class="container">
     <section class="hero is-medium">
         <div class="hero-body is-flex is-justify-content-center">
 
             <form asp-action="@nameof(AccountController.Login)" asp-controller="Account" class="is-flex is-flex-direction-column">
 
-                <div asp-validation-summary="ModelOnly" class="notification is-danger has-text-weight-semibold is-flex is-align-items-center">
-                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                <div class="summary mb-5">
+                    <div asp-validation-summary="ModelOnly" class="notification is-danger has-text-weight-semibold is-flex is-align-items-center">
+                        <i class="fas fa-exclamation-triangle mr-3"></i>
+                    </div>
                 </div>
-            <div class="field">
-                <div class="control has-icons-left">
-                    <input asp-for="UserName" class="input" placeholder="Username"/>
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input asp-for="UserName" class="input" placeholder="Username" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <p class="help is-danger">
+                        <span asp-validation-for="UserName" class="is-danger"></span>
+                    </p>
                 </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="UserName" class="is-danger"></span>
-                </p>
-            </div>
-            <div class="field">
-                <div class="control has-icons-left">
-                    <input asp-for="Password" class="input" type="password" placeholder="Password"/>
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input asp-for="Password" class="input" type="password" placeholder="Password" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                    <p class="help is-danger">
+                        <span asp-validation-for="Password" class="is-danger"></span>
+                    </p>
                 </div>
-                <p class="help is-danger">
-                    <span asp-validation-for="Password" class="is-danger"></span>
-                </p>
-            </div>
-            <input type="hidden" asp-for="ReturnUrl"/>
-            <button type="submit" class="button is-success mt-5">Login</button>
+                <input type="hidden" asp-for="ReturnUrl"/>
+                <button type="submit" class="button is-success mt-5">Login</button>
             </form>
 
         </div>

@@ -33,7 +33,7 @@
                 <div class="buttons">
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <a asp-action="Logout" asp-controller="Account" class="button is-light">
+                        <a asp-action="Logout" asp-controller="Account" class="button is-dark">
                             Log out
                         </a>
                     }
@@ -42,7 +42,7 @@
                         <a asp-action="Register" asp-controller="Account" class="button is-primary">
                             Sign Up
                         </a>
-                        <a asp-action="Login" asp-controller="Account" class="button is-light">
+                        <a asp-action="Login" asp-controller="Account" class="button is-dark">
                             Log in
                         </a>
                     }

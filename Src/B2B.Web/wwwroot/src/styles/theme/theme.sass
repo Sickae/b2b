@@ -1,19 +1,16 @@
-﻿@import colors
+@import colors
 @import bulma-overrides
 @import ~bulma
 
-body
-  overflow-y: scroll
-  -ms-overflow-style: none
-  scrollbar-width: none
-  &::-webkit-scrollbar
-    display: none
+html
+  overflow-y: auto
 
-.main-hero .navbar
-  background-color: $theme-black
+.main-hero
+  .navbar
+    background-color: $theme-black
+  footer
+    max-height: 5vh
 
-.main-hero footer
-  max-height: 5vh
 
 
 .is-login-container

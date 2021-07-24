@@ -14,6 +14,7 @@ module.exports = function (env) {
         mode: 'development',
         entry: {
             layout: './wwwroot/src/ts/sites/layout.ts',
+            login: './wwwroot/src/styles/sites/login.sass',
         },
         devtool: 'inline-source-map',
         output: {
