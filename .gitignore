@@ -198,3 +198,6 @@ ModelManifest.xml
 # Others
 .vagrant/
 Ignore/
+
+# Webpack
+webpack-assets.json
