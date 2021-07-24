@@ -3,13 +3,14 @@
 @import ~bulma
 
 html
-  overflow-y: auto
+  overflow-y: hidden
 
 .main-hero
   .navbar
     background-color: $theme-black
-  footer
-    max-height: 5vh
+  .hero-body
+    max-height: calc(100vh - 56px)
+    overflow-x: hidden
 
 
 

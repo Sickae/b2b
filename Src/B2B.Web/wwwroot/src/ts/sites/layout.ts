@@ -1,5 +1,7 @@
 ﻿import '@fortawesome/fontawesome-free/css/all.css';
 import '../../styles/theme/theme.sass';
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
 
 import {docReady, onEvent} from "./utils";
 

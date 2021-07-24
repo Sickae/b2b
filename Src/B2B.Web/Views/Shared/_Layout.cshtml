@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -14,8 +14,10 @@
         <partial name="_Navbar"/>
     </div>
 
-    <div class="hero-body is-flex-direction-column">
-        @RenderBody()
+    <div class="hero-body" data-simplebar="true">
+        <div class="is-flex-direction-column">
+            @RenderBody()
+        </div>
     </div>
 
 </section>
