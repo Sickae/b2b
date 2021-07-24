@@ -5,6 +5,8 @@ namespace B2B.Shared.Dto
 {
     public class ApplicationFlowDto : DtoBase
     {
-        public ApplicationFlowDescription Description { get; set; }
+        public string Description { get; set; }
+
+        public ApplicationFlowDescription FlowDescription { get; set; }
     }
 }

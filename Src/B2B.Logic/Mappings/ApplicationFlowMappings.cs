@@ -11,11 +11,11 @@ namespace B2B.Logic.Mappings
         public ApplicationFlowMappings()
         {
             CreateMap<ApplicationFlowEntity, ApplicationFlowDto>()
-                .ForMember(x => x.Description,
+                .ForMember(x => x.FlowDescription,
                     m => m.MapFrom(x => JsonConvert.DeserializeObject<ApplicationFlowDescription>(x.DescriptionJson)));
 
             CreateMap<ApplicationFlowDto, ApplicationFlowEntity>()
-                .ForMember(x => x.DescriptionJson, m => m.MapFrom(x => JsonConvert.SerializeObject(x.Description)));
+                .ForMember(x => x.DescriptionJson, m => m.MapFrom(x => JsonConvert.SerializeObject(x.FlowDescription)));
         }
     }
 }

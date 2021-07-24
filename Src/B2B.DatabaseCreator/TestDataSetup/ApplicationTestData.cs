@@ -29,12 +29,48 @@ namespace B2B.DatabaseCreator.TestDataSetup
                     new ApplicationFlowQuestion
                     {
                         Type = ApplicationFlowQuestionType.Choice,
-                        Text = "Second question"
+                        Text = "Second question",
+                        Choices = new ApplicationFlowQuestionChoice []
+                        {
+                            new()
+                            {
+                                Code = "second_question",
+                                Value = "Option 1"
+                            },
+                            new()
+                            {
+                                Code = "second_question",
+                                Value = "Option 2"
+                            },
+                            new()
+                            {
+                                Code = "second_question",
+                                Value = "Option 3"
+                            }
+                        }
                     },
                     new ApplicationFlowQuestion
                     {
                         Type = ApplicationFlowQuestionType.MultiChoice,
-                        Text = "Third question"
+                        Text = "Third question",
+                        Choices = new ApplicationFlowQuestionChoice []
+                        {
+                            new()
+                            {
+                                Code = "third_question",
+                                Value = "Option 1"
+                            },
+                            new()
+                            {
+                                Code = "third_question",
+                                Value = "Option 2"
+                            },
+                            new()
+                            {
+                                Code = "third_question",
+                                Value = "Option 3"
+                            }
+                        }
                     },
                 }
             };
@@ -43,6 +79,7 @@ namespace B2B.DatabaseCreator.TestDataSetup
             {
                 CreationDateUtc = DateTime.UtcNow,
                 ModificationDateUtc = DateTime.UtcNow,
+                Description = "Please answer the questions below to submit an application to the guild.",
                 DescriptionJson = JsonConvert.SerializeObject(description)
             };
         }

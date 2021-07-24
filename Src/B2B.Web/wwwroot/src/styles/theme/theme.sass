@@ -1,4 +1,4 @@
-@import colors
+﻿@import colors
 @import bulma-overrides
 @import ~bulma-checkradio
 @import ~bulma
@@ -13,7 +13,19 @@ html
     max-height: calc(100vh - 56px)
     overflow-x: hidden
 
+.container
+  width: 100%
 
+.is-darker
+  background-color: darken($theme-dark, 7)
 
-.is-login-container
-  margin-top: -1rem
+.hero.is-bordered
+  border-radius: .25rem
+
+// variable overriding doesn't work with the bulma-checkradio extension
+.is-checkradio[type=checkbox]:focus + label::before, .is-checkradio[type=checkbox]:focus + label:before, .is-checkradio[type=radio]:focus + label::before, .is-checkradio[type=radio]:focus + label:before
+  outline: none
+
+.is-checkradio[type=checkbox] + label::after, .is-checkradio[type=checkbox] + label:after
+  border-width: .1rem !important
+  top: 5px
