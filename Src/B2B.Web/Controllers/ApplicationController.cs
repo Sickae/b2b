@@ -23,15 +23,19 @@ namespace B2B.Web.Controllers
         public async Task<IActionResult> Fill()
         {
             var applicationFlow = await Mediator.Send(new StaticApplicationFlowQuery());
-            var model = Mapper.Map<ApplicationFlowViewModel>(applicationFlow);
+            var model = Mapper.Map<ApplicationViewModel>(applicationFlow);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Fill(ApplicationFlowViewModel model)
+        public async Task<IActionResult> Fill(ApplicationViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                var applicationFlow = await Mediator.Send(new StaticApplicationFlowQuery());
+                Mapper.Map(applicationFlow, model);
                 return View(model);
+            }
 
             return Ok();
         }

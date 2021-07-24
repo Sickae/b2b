@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace B2B.Web.Models.Validators
 {
-    public class ApplicationFlowViewModelValidator : ValidatorBase<ApplicationFlowViewModel>
+    public class ApplicationFlowViewModelValidator : ValidatorBase<ApplicationViewModel>
     {
         private Dictionary<string, string> _formDict;
 

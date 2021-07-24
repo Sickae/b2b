@@ -1,6 +1,6 @@
-﻿@using B2B.Shared.Dto.ApplicationFlow
-@using B2B.Web.Controllers
-@model B2B.Web.Models.ApplicationFlowViewModel
+﻿@using B2B.Web.Controllers
+@using B2B.Shared.Dto.ApplicationFlow
+@model B2B.Web.Models.ApplicationViewModel
 
 <webpack-scripts entry="applicationFill"></webpack-scripts>
 
@@ -8,44 +8,48 @@
     <p class="title has-text-white has-text-centered is-size-5 mb-5">@Model.Description</p>
 </div>
 <div class="container">
-    <div asp-validation-summary="All"></div>
     <form asp-action="@nameof(ApplicationController.Fill)" asp-controller="Application">
         @for (var i = 0; i < Model.FlowDescription.Questions.Length; i++)
         {
             var question = Model.FlowDescription.Questions[i];
+            var isOptionalClass = question.IsOptional ? "is-optional" : "";
+            var isInlineChoiceClass = question.IsInlineChoice ? "is-flex-direction-row" : "is-flex-direction-column";
             <section class="is-darker mb-3 px-5 pb-5 pt-3 is-bordered application-question" data-type="@question.Type">
                 <input type="hidden" asp-for="FlowDescription.Questions[i].Code" class="question-code"/>
                 <input type="hidden" asp-for="FlowDescription.Questions[i].IsOptional"/>
-                <label class="label mb-4">@question.Text</label>
+                <label class="label mb-4 @isOptionalClass">@question.Text</label>
                 @switch (question.Type)
                 {
                     case ApplicationFlowQuestionType.Text:
                     {
                         <div class="field">
-                            <textarea class="textarea" rows="2"></textarea>
+                            <textarea name="@question.Code" class="textarea" rows="2"></textarea>
                         </div>
+                        <span asp-validation-for="FlowDescription.Questions[i]" class="has-text-danger"></span>
                         break;
                     }
                     case ApplicationFlowQuestionType.Choice:
                     {
-                        <div class="field is-flex is-flex-wrap-wrap is-flex-direction-column">
+                        <div class="field is-flex is-flex-wrap-wrap @isInlineChoiceClass">
                             @foreach (var choice in question.Choices.OrderBy(x => x.Ordinal))
                             {
                                 <input type="radio" name="@question.Code" value="@choice.Value" id="@($"{question.Code}_{choice.Ordinal}")" class="is-checkradio is-info"/>
                                 <label for="@($"{question.Code}_{choice.Ordinal}")" class="ml-2">@choice.Value</label>
                             }
                         </div>
+                        <span asp-validation-for="FlowDescription.Questions[i]" class="has-text-danger"></span>
                         break;
                     }
                     case ApplicationFlowQuestionType.MultiChoice:
                     {
-                        <div class="field is-flex is-flex-wrap-wrap is-flex-direction-column">
+                        <div class="field is-flex is-flex-wrap-wrap @isInlineChoiceClass">
                             @foreach (var choice in question.Choices.OrderBy(x => x.Ordinal))
                             {
                                 <input type="checkbox" name="@question.Code" value="@choice.Value" id="@($"{question.Code}_{choice.Ordinal}")" class="is-checkradio is-info"/>
                                 <label for="@($"{question.Code}_{choice.Ordinal}")" class="ml-2">@choice.Value</label>
                             }
                         </div>
+                        <span asp-validation-for="FlowDescription.Questions[i]" class="has-text-danger"></span>
                         break;
                     }
                 }

@@ -7,7 +7,7 @@ namespace B2B.Web.Models.Mappings
     {
         public ViewModelMappings()
         {
-            CreateMap<ApplicationFlowDto, ApplicationFlowViewModel>().ReverseMap();
+            CreateMap<ApplicationFlowDto, ApplicationViewModel>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿import {docReady, SiteConfig as cfg, onEvent} from "../utils";
+﻿import {docReady, onEvent, SiteConfig as cfg} from "../utils";
 
 let siteConfig: cfg.SiteConfigHandler;
 const QUESTION_TYPE_KEYS: {[p: string]: string} = {
@@ -12,6 +12,8 @@ docReady(() => {
     siteConfig = cfg.load(containerId);
     for (let key in QUESTION_TYPE_KEYS)
         siteConfig.assertKeys([QUESTION_TYPE_KEYS[key]]);
+
+    reloadFromFormJson();
 });
 
 onEvent<HTMLFormElement>('submit', 'form',(element, event) => {
@@ -58,4 +60,42 @@ function parseElement(questionElement: HTMLElement): {key: string, value: string
     return value !== null && value.length > 0
         ? {key: codeInput.value, value}
         : null;
+}
+
+function reloadFromFormJson(): void {
+    let json = document.querySelector<HTMLInputElement>('#FormJson')?.value ?? '';
+    if (json.length === 0)
+        return;
+
+    let form = JSON.parse(json);
+    for (let key in form) {
+        let input = document.querySelector<HTMLInputElement>(`[name="${key}"]`);
+        let question = input?.closest<HTMLElement>('.application-question');
+
+        if (input == null || question == null)
+            continue;
+
+        switch (question.dataset.type) {
+            case siteConfig.getValue(QUESTION_TYPE_KEYS.Text): {
+                input.value = form[key];
+                break;
+            }
+            case siteConfig.getValue(QUESTION_TYPE_KEYS.Choice): {
+                let radioInput = question.querySelector<HTMLInputElement>(`input[type="radio"][value="${form[key]}"]`);
+                if (radioInput !== null)
+                    radioInput.checked = true;
+                break;
+            }
+            case siteConfig.getValue(QUESTION_TYPE_KEYS.MultiChoice): {
+                let values = form[key].split(';;');
+                for (let value of values) {
+                    let checkboxInput = question.querySelector<HTMLInputElement>(`input[type="checkbox"][value="${value}"]`);
+                    if (checkboxInput !== null)
+                        checkboxInput.checked = true;
+                }
+                break;
+            }
+            default: break;
+        }
+    }
 }

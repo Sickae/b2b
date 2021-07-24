@@ -17,7 +17,7 @@ html
   width: 100%
 
 .is-darker
-  background-color: darken($theme-dark, 7)
+  background-color: darken($theme-dark, 7%)
 
 .hero.is-bordered
   border-radius: .25rem
@@ -29,3 +29,12 @@ html
 .is-checkradio[type=checkbox] + label::after, .is-checkradio[type=checkbox] + label:after
   border-width: .1rem !important
   top: 5px
+
+label
+  &.is-required::after
+    content: '*'
+    color: $theme-danger
+  &.is-optional::after
+    content: ' (optional)'
+    font-size: smaller
+    color: $theme-lighter
