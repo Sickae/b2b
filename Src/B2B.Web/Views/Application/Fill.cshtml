@@ -1,42 +1,49 @@
 ﻿@using B2B.Shared.Dto.ApplicationFlow
+@using B2B.Web.Controllers
 @model B2B.Web.Models.ApplicationFlowViewModel
+
+<webpack-scripts entry="applicationFill"></webpack-scripts>
 
 <div class="container is-flex is-align-items-center is-justify-content-center">
     <p class="title has-text-white has-text-centered is-size-5 mb-5">@Model.Description</p>
 </div>
 <div class="container">
-    <form> @* TODO *@
-        @foreach (var question in Model.FlowDescription.Questions)
+    <div asp-validation-summary="All"></div>
+    <form asp-action="@nameof(ApplicationController.Fill)" asp-controller="Application">
+        @for (var i = 0; i < Model.FlowDescription.Questions.Length; i++)
         {
-            <section class="is-darker mb-3 px-5 pb-5 pt-3 is-bordered">
+            var question = Model.FlowDescription.Questions[i];
+            <section class="is-darker mb-3 px-5 pb-5 pt-3 is-bordered application-question" data-type="@question.Type">
+                <input type="hidden" asp-for="FlowDescription.Questions[i].Code" class="question-code"/>
+                <input type="hidden" asp-for="FlowDescription.Questions[i].IsOptional"/>
                 <label class="label mb-4">@question.Text</label>
                 @switch (question.Type)
                 {
                     case ApplicationFlowQuestionType.Text:
                     {
-                        <textarea class="textarea" rows="2"></textarea>
+                        <div class="field">
+                            <textarea class="textarea" rows="2"></textarea>
+                        </div>
                         break;
                     }
                     case ApplicationFlowQuestionType.Choice:
                     {
-                        <div class="field is-flex is-flex-wrap-wrap">
-                            @for (var i = 0; i < question.Choices.Length; i++)
+                        <div class="field is-flex is-flex-wrap-wrap is-flex-direction-column">
+                            @foreach (var choice in question.Choices.OrderBy(x => x.Ordinal))
                             {
-                                var choice = question.Choices[i];
-                                <input type="radio" name="@choice.Code" id="@($"{choice.Code}_{i}")" class="is-checkradio is-info"/>
-                                <label for="@($"{choice.Code}_{i}")" class="ml-2">@choice.Value</label>
+                                <input type="radio" name="@question.Code" value="@choice.Value" id="@($"{question.Code}_{choice.Ordinal}")" class="is-checkradio is-info"/>
+                                <label for="@($"{question.Code}_{choice.Ordinal}")" class="ml-2">@choice.Value</label>
                             }
                         </div>
                         break;
                     }
                     case ApplicationFlowQuestionType.MultiChoice:
                     {
-                        <div class="field is-flex is-flex-wrap-wrap">
-                            @for (var i = 0; i < question.Choices.Length; i++)
+                        <div class="field is-flex is-flex-wrap-wrap is-flex-direction-column">
+                            @foreach (var choice in question.Choices.OrderBy(x => x.Ordinal))
                             {
-                                var choice = question.Choices[i];
-                                <input type="checkbox" name="@choice.Code" id="@($"{choice.Code}_{i}")" class="is-checkradio is-info"/>
-                                <label for="@($"{choice.Code}_{i}")" class="ml-2">@choice.Value</label>
+                                <input type="checkbox" name="@question.Code" value="@choice.Value" id="@($"{question.Code}_{choice.Ordinal}")" class="is-checkradio is-info"/>
+                                <label for="@($"{question.Code}_{choice.Ordinal}")" class="ml-2">@choice.Value</label>
                             }
                         </div>
                         break;
@@ -45,8 +52,15 @@
             </section>
         }
         <div class="is-flex is-justify-content-center">
-            <button type="button" class="button is-light mt-5 px-6 mr-4">Back</button>
-            <button type="button" class="button is-success mt-5 px-6">Send</button>
+            <button type="button" class="button is-black mt-5 px-6 mr-4">Back</button>
+            <button type="submit" class="button is-success mt-5 px-6">Send</button>
         </div>
+        <input type="hidden" asp-for="FormJson"/>
     </form>
-</div >
+</div>
+
+<div id="site-config" hidden>
+    <input value="@($"cfg-questionType-text_{ApplicationFlowQuestionType.Text}")" />
+    <input value="@($"cfg-questionType-choice_{ApplicationFlowQuestionType.Choice}")" />
+    <input value="@($"cfg-questionType-multi-choice_{ApplicationFlowQuestionType.MultiChoice}")" />
+</div>

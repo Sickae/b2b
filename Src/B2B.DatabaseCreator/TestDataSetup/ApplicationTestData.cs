@@ -23,55 +23,41 @@ namespace B2B.DatabaseCreator.TestDataSetup
                 {
                     new ApplicationFlowQuestion
                     {
+                        Code = "first_question",
                         Type = ApplicationFlowQuestionType.Text,
                         Text = "First question"
                     },
                     new ApplicationFlowQuestion
                     {
+                        Code = "second_question",
                         Type = ApplicationFlowQuestionType.Choice,
                         Text = "Second question",
-                        Choices = new ApplicationFlowQuestionChoice []
+                        Choices = new ApplicationFlowQuestionChoice[]
                         {
-                            new()
-                            {
-                                Code = "second_question",
-                                Value = "Option 1"
-                            },
-                            new()
-                            {
-                                Code = "second_question",
-                                Value = "Option 2"
-                            },
-                            new()
-                            {
-                                Code = "second_question",
-                                Value = "Option 3"
-                            }
+                            new() {Value = "Option 1", Ordinal = 0},
+                            new() {Value = "Option 2", Ordinal = 1},
+                            new() {Value = "Option 3", Ordinal = 2}
                         }
                     },
                     new ApplicationFlowQuestion
                     {
+                        Code = "third_question",
                         Type = ApplicationFlowQuestionType.MultiChoice,
                         Text = "Third question",
-                        Choices = new ApplicationFlowQuestionChoice []
+                        Choices = new ApplicationFlowQuestionChoice[]
                         {
-                            new()
-                            {
-                                Code = "third_question",
-                                Value = "Option 1"
-                            },
-                            new()
-                            {
-                                Code = "third_question",
-                                Value = "Option 2"
-                            },
-                            new()
-                            {
-                                Code = "third_question",
-                                Value = "Option 3"
-                            }
+                            new() {Value = "Option 1", Ordinal = 0},
+                            new() {Value = "Option 2", Ordinal = 1},
+                            new() {Value = "Option 3", Ordinal = 2}
                         }
                     },
+                    new ApplicationFlowQuestion
+                    {
+                        Code = "last_optional_question",
+                        Type = ApplicationFlowQuestionType.Text,
+                        Text = "Optional question",
+                        IsOptional = true
+                    }
                 }
             };
 

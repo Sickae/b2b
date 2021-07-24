@@ -26,5 +26,14 @@ namespace B2B.Web.Controllers
             var model = Mapper.Map<ApplicationFlowViewModel>(applicationFlow);
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Fill(ApplicationFlowViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            return Ok();
+        }
     }
 }
