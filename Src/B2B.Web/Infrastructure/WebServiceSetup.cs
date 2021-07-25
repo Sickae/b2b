@@ -17,7 +17,7 @@ namespace B2B.Web.Infrastructure
 
             // Validators
             services.AddScoped<IValidator<LoginViewModel>, LoginViewModelValidator>();
-            services.AddScoped<IValidator<ApplicationViewModel>, ApplicationFlowViewModelValidator>();
+            services.AddScoped<IValidator<ApplicationViewModel>, ApplicationViewModelValidator>();
 
             return services;
         }

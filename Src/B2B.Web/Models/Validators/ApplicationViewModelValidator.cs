@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using B2B.Logic.BusinessLogic.Application.Query;
+using B2B.Logic.BusinessLogic.Blacklist.Query;
 using B2B.Shared.Dto;
 using B2B.Shared.Dto.ApplicationFlow;
 using B2B.Shared.Dto.Validators;
@@ -13,14 +14,14 @@ using Newtonsoft.Json;
 
 namespace B2B.Web.Models.Validators
 {
-    public class ApplicationFlowViewModelValidator : ValidatorBase<ApplicationViewModel>
+    public class ApplicationViewModelValidator : ValidatorBase<ApplicationViewModel>
     {
         private readonly IMediator _mediator;
         private Dictionary<string, string> _formDict;
         private bool _isExistingApplicationChecked;
         private ApplicationDto _existingApplication;
 
-        public ApplicationFlowViewModelValidator(IMediator mediator)
+        public ApplicationViewModelValidator(IMediator mediator)
         {
             _mediator = mediator;
 
@@ -34,7 +35,9 @@ namespace B2B.Web.Models.Validators
                 .MustAsync((x, token) => HasNoApplicationWithStatus(x, ApplicationStatus.Approved, token))
                 .WithMessage("This user is a member already.")
                 .MustAsync((x, token) => HasNoApplicationWithStatus(x, ApplicationStatus.Rejected, token))
-                .WithMessage("This user's application has been recently rejected. Try again later.");
+                .WithMessage("This user's application has been recently rejected. Try again later.")
+                .MustAsync(IsNotBlacklisted)
+                .WithMessage("This user is blacklisted.");
         }
 
         private bool IsPresentInForm(string formJson, ApplicationFlowQuestion question)
@@ -65,6 +68,13 @@ namespace B2B.Web.Models.Validators
                     await _mediator.Send(new ApplicationQuery {InGameName = inGameName}, cancellationToken);
                 _isExistingApplicationChecked = true;
             }
+        }
+
+        private async Task<bool> IsNotBlacklisted(string inGameName, CancellationToken cancellationToken)
+        {
+            var blacklistEntity =
+                await _mediator.Send(new BlacklistQuery {InGameName = inGameName}, cancellationToken);
+            return blacklistEntity == null;
         }
     }
 }
