@@ -30,14 +30,14 @@ namespace B2B.Web.Models.Validators
                 .WithMessage("This is a required question.");
 
             RuleFor(x => x.InGameName)
+                .MustAsync(IsNotBlacklisted)
+                .WithMessage("This user is blacklisted.")
                 .MustAsync((x, token) => HasNoApplicationWithStatus(x, ApplicationStatus.Pending, token))
                 .WithMessage("There is a pending application for this user already.")
                 .MustAsync((x, token) => HasNoApplicationWithStatus(x, ApplicationStatus.Approved, token))
                 .WithMessage("This user is a member already.")
                 .MustAsync((x, token) => HasNoApplicationWithStatus(x, ApplicationStatus.Rejected, token))
-                .WithMessage("This user's application has been recently rejected. Try again later.")
-                .MustAsync(IsNotBlacklisted)
-                .WithMessage("This user is blacklisted.");
+                .WithMessage("This user's application has been recently rejected. Try again later.");
         }
 
         private bool IsPresentInForm(string formJson, ApplicationFlowQuestion question)
