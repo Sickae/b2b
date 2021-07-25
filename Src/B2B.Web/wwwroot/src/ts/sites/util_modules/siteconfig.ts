@@ -18,8 +18,10 @@
             this._containerId = containerId;
 
             let siteCfgContainer = document.getElementById(containerId);
-            if (siteCfgContainer === null)
+            if (siteCfgContainer === null) {
+                console.error(`${containerId} container cannot be found.`);
                 return;
+            }
 
             siteCfgContainer.querySelectorAll<HTMLInputElement>('input').forEach((el) => {
                 let match = this._cfgMarkerRegex.exec(el.value ?? '');
