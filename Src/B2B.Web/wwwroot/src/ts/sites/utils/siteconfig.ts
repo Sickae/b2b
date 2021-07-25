@@ -1,4 +1,4 @@
-﻿import docReady from "./docready";
+﻿import {docReady} from "./docready";
 
 class SiteConfigHandler {
     private _configs: {[p: string]: string} = {};

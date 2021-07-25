@@ -1,4 +1,4 @@
-﻿export default function onEvent<T extends HTMLElement>(eventName: string, elementSelector: string, callback: ((target: T) => void) | ((target: T, event: Event) => void)) {
+﻿export function onEvent<T extends HTMLElement>(eventName: string, elementSelector: string, callback: ((target: T) => void) | ((target: T, event: Event) => void)) {
     document.addEventListener(eventName as any, function (e) {
         // loop parent nodes from the target to the delegation node
         for (let target = e.target; target && target != this; target = target.parentNode) {
@@ -9,3 +9,5 @@
         }
     }, false);
 }
+
+export default {onEvent};

@@ -1,7 +1,7 @@
 ﻿import '../../../styles/sites/application.sass';
-import docReady from '../utils/docready';
-import onEvent from '../utils/onevent';
 import SiteConfig from '../utils/siteconfig';
+import {docReady} from "../utils/docready";
+import {onEvent} from "../utils/onevent";
 
 const QUESTION_TYPE_KEYS: {[p: string]: string} = {
     Text: 'questionType-text',
