@@ -27,7 +27,7 @@ class SiteConfigHandler {
 
     public assertKeys(keys: string[]) {
         for (let key of keys)
-            console.assert(this.getValue(key), `Key '${key}' is not present in the list.`);
+            console.assert(this.getValue(key), `Key '${key}' is not present in the config list.`);
     }
 }
 
