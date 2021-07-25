@@ -24,9 +24,7 @@
                             <i class="fas fa-user"></i>
                         </span>
                     </div>
-                    <p class="help is-danger">
-                        <span asp-validation-for="UserName" class="is-danger"></span>
-                    </p>
+                    <span asp-validation-for="UserName" class="has-text-danger"></span>
                 </div>
                 <div class="field">
                     <div class="control has-icons-left">
@@ -35,9 +33,7 @@
                             <i class="fas fa-lock"></i>
                         </span>
                     </div>
-                    <p class="help is-danger">
-                        <span asp-validation-for="Password" class="is-danger"></span>
-                    </p>
+                    <span asp-validation-for="Password" class="has-text-danger"></span>
                 </div>
                 <input type="hidden" asp-for="ReturnUrl"/>
                 <button type="submit" class="button is-success mt-5">Login</button>

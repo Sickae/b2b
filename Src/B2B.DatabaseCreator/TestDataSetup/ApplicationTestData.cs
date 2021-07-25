@@ -54,7 +54,7 @@ namespace B2B.DatabaseCreator.TestDataSetup
                     },
                     new ApplicationFlowQuestion
                     {
-                        Code = "source",
+                        Code = "reason_to_join",
                         Type = ApplicationFlowQuestionType.MultiChoice,
                         Text = "Why would you like to join us?",
                         Choices = new ApplicationFlowQuestionChoice[]
