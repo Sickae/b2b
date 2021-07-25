@@ -3,7 +3,8 @@ import '../../styles/theme/theme.sass';
 import 'simplebar';
 import 'simplebar/dist/simplebar.css';
 
-import {docReady, onEvent} from "./utils";
+import docReady from './utils/docready';
+import onEvent from './utils/onevent';
 
 docReady(() => {
     console.log('document ready');

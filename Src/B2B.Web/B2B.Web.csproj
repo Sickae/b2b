@@ -34,10 +34,10 @@
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\src\ts\sites\application\application-fill.ts" />
     <TypeScriptCompile Include="wwwroot\src\ts\sites\layout.ts" />
-    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils.ts" />
-    <TypeScriptCompile Include="wwwroot\src\ts\sites\util_modules\docready.ts" />
-    <TypeScriptCompile Include="wwwroot\src\ts\sites\util_modules\onevent.ts" />
-    <TypeScriptCompile Include="wwwroot\src\ts\sites\util_modules\siteconfig.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\list.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\docready.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\onevent.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\siteconfig.ts" />
   </ItemGroup>
 
 </Project>

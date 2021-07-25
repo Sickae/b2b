@@ -1,7 +1,8 @@
 ﻿import '../../../styles/sites/application.sass';
-import {docReady, onEvent, SiteConfig as cfg} from "../utils";
+import docReady from '../utils/docready';
+import onEvent from '../utils/onevent';
+import SiteConfig from '../utils/siteconfig';
 
-let siteConfig: cfg.SiteConfigHandler;
 const QUESTION_TYPE_KEYS: {[p: string]: string} = {
     Text: 'questionType-text',
     Choice: 'questionType-choice',
@@ -9,10 +10,8 @@ const QUESTION_TYPE_KEYS: {[p: string]: string} = {
 };
 
 docReady(() => {
-    let containerId = 'site-config';
-    siteConfig = cfg.load(containerId);
     for (let key in QUESTION_TYPE_KEYS)
-        siteConfig.assertKeys([QUESTION_TYPE_KEYS[key]]);
+        SiteConfig.assertKeys([QUESTION_TYPE_KEYS[key]]);
 
     reloadFromFormJson();
 });
@@ -41,15 +40,15 @@ function parseElement(questionElement: HTMLElement): {key: string, value: string
 
     let value: string | null = null;
     switch (questionElement.dataset.type) {
-        case siteConfig.getValue(QUESTION_TYPE_KEYS.Text): {
+        case SiteConfig.getValue(QUESTION_TYPE_KEYS.Text): {
             value = questionElement.querySelector<HTMLTextAreaElement>('textarea')?.value ?? null;
             break;
         }
-        case siteConfig.getValue(QUESTION_TYPE_KEYS.Choice): {
+        case SiteConfig.getValue(QUESTION_TYPE_KEYS.Choice): {
             value = questionElement.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.value ?? null
             break;
         }
-        case siteConfig.getValue(QUESTION_TYPE_KEYS.MultiChoice): {
+        case SiteConfig.getValue(QUESTION_TYPE_KEYS.MultiChoice): {
             let selected = questionElement.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:checked');
             let labelArr = Array.from(selected).map(x => x.value ?? '');
             value = labelArr.join(';;');
@@ -77,17 +76,17 @@ function reloadFromFormJson(): void {
             continue;
 
         switch (question.dataset.type) {
-            case siteConfig.getValue(QUESTION_TYPE_KEYS.Text): {
+            case SiteConfig.getValue(QUESTION_TYPE_KEYS.Text): {
                 input.value = form[key];
                 break;
             }
-            case siteConfig.getValue(QUESTION_TYPE_KEYS.Choice): {
+            case SiteConfig.getValue(QUESTION_TYPE_KEYS.Choice): {
                 let radioInput = question.querySelector<HTMLInputElement>(`input[type="radio"][value="${form[key]}"]`);
                 if (radioInput !== null)
                     radioInput.checked = true;
                 break;
             }
-            case siteConfig.getValue(QUESTION_TYPE_KEYS.MultiChoice): {
+            case SiteConfig.getValue(QUESTION_TYPE_KEYS.MultiChoice): {
                 let values = form[key].split(';;');
                 for (let value of values) {
                     let checkboxInput = question.querySelector<HTMLInputElement>(`input[type="checkbox"][value="${value}"]`);
