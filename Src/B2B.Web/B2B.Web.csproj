@@ -36,6 +36,7 @@
     <TypeScriptCompile Include="wwwroot\src\ts\sites\layout.ts" />
     <TypeScriptCompile Include="wwwroot\src\ts\sites\list.ts" />
     <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\docready.ts" />
+    <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\grid-table.ts" />
     <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\onevent.ts" />
     <TypeScriptCompile Include="wwwroot\src\ts\sites\utils\siteconfig.ts" />
   </ItemGroup>

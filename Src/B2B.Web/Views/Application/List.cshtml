@@ -1,0 +1,12 @@
+﻿@using B2B.Web.Controllers
+<webpack-scripts entry="list"></webpack-scripts>
+
+<div class="container">
+    <div id="table-wrapper"></div>
+</div>
+
+<div data-site-config hidden>
+    <site-config key="table-url" value="@Url.ActionLink(nameof(ApplicationController.Applications), "Application")" />
+</div>
+
+<partial name="_GridModelSiteConfig" />

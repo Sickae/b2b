@@ -16,6 +16,7 @@ module.exports = function (env) {
             layout: './wwwroot/src/ts/sites/layout.ts',
             login: './wwwroot/src/styles/sites/login.sass',
             applicationFill: './wwwroot/src/ts/sites/application/application-fill.ts',
+            list: './wwwroot/src/ts/sites/list.ts',
         },
         devtool: 'inline-source-map',
         output: {
