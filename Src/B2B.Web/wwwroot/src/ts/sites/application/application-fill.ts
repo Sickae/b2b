@@ -1,4 +1,5 @@
-﻿import {docReady, onEvent, SiteConfig as cfg} from "../utils";
+﻿import '../../../styles/sites/application.sass';
+import {docReady, onEvent, SiteConfig as cfg} from "../utils";
 
 let siteConfig: cfg.SiteConfigHandler;
 const QUESTION_TYPE_KEYS: {[p: string]: string} = {

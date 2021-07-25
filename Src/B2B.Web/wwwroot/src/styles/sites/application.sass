@@ -1,0 +1,19 @@
+﻿@import '../theme/theme'
+
+$button-separator-width: 2rem
+
+.button-separator
+  min-width: $button-separator-width
+
+form .button
+  +mobile
+    min-width: calc(50% - (#{$button-separator-width}/2))
+
+  +tablet-only
+    min-width: calc(35% - (#{$button-separator-width}/2))
+
+  +desktop-only
+    min-width: calc(20% - (#{$button-separator-width}/2))
+
+  +widescreen-only
+  min-width: calc(15% - (#{$button-separator-width}/2))

@@ -30,7 +30,7 @@
                     case ApplicationFlowQuestionType.Text:
                     {
                         <div class="field">
-                            <textarea name="@question.Code" class="textarea" rows="2"></textarea>
+                            <textarea name="@question.Code" class="textarea" rows="2" placeholder="Type here..."></textarea>
                         </div>
                         <span asp-validation-for="FlowDescription.Questions[i]" class="has-text-danger"></span>
                         break;
@@ -62,10 +62,11 @@
                 }
             </section>
         }
-        <div class="is-flex is-justify-content-center">
-            <button type="button" class="button is-black mt-5 px-6 mr-4">Back</button>
-            <button type="submit" class="button is-success mt-5 px-6">Send</button>
-        </div>
+        <section class="is-flex is-justify-content-center">
+            <button type="button" class="button is-black mt-5">Back</button>
+            <div class="button-separator"></div>
+            <button type="submit" class="button is-success mt-5">Send</button>
+        </section>
         <input type="hidden" asp-for="FormJson"/>
     </form>
 </div>
