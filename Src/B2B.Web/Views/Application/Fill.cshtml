@@ -9,6 +9,13 @@
 </div>
 <div class="container">
     <form asp-action="@nameof(ApplicationController.Fill)" asp-controller="Application">
+        <section class="is-darker mb-3 px-5 pb-5 pt-3 is-bordered">
+            <div class="field">
+                <label asp-for="InGameName" class="label is-text-nowrap"></label>
+                <input asp-for="InGameName" class="input" asp-placeholder="InGameName"/>
+            </div>
+            <span asp-validation-for="InGameName" class="has-text-danger"></span>
+        </section>
         @for (var i = 0; i < Model.FlowDescription.Questions.Length; i++)
         {
             var question = Model.FlowDescription.Questions[i];

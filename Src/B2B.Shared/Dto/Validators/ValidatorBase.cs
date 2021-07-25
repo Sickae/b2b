@@ -23,7 +23,7 @@ namespace B2B.Shared.Dto.Validators
             {
                 case RequiredAttribute requiredAttribute:
                 {
-                    var requiredRule = RuleFor(expression).NotEmpty();
+                    var requiredRule = RuleFor(expression).NotEmpty().WithMessage("This field is required.");
                     SetRuleErrorMessage(requiredRule, errorMsg);
                     break;
                 }
