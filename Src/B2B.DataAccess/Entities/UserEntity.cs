@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using B2B.DataAccess.Attributes;
 using B2B.DataAccess.Entities.Base;
 
@@ -11,6 +9,13 @@ namespace B2B.DataAccess.Entities
     {
         [Unique]
         public virtual string InGameName { get; set; }
+
+        [Text]
+        public virtual string ApplicationJson { get; set; }
+
+        public virtual ApplicationFlowEntity ApplicationFlow { get; set; }
+
+        public virtual bool IsActivated { get; set; }
 
         #region Identity
 

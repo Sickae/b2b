@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using B2B.Logic.BusinessLogic.Application.Command;
 using B2B.Logic.BusinessLogic.ApplicationFlow.Query;
+using B2B.Logic.Identity;
+using B2B.Shared.Dto;
 using B2B.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +12,12 @@ namespace B2B.Web.Controllers
 {
     public class ApplicationController : ControllerBase
     {
-        public ApplicationController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
+        private readonly IdentityUserManager _identityUserManager;
+
+        public ApplicationController(IMediator mediator, IMapper mapper,
+            IdentityUserManager identityUserManager) : base(mediator, mapper)
         {
+            _identityUserManager = identityUserManager;
         }
 
         [HttpGet]
@@ -37,7 +44,9 @@ namespace B2B.Web.Controllers
                 return View(model);
             }
 
-            return Ok();
+            var application = Mapper.Map<ApplicationDto>(model);
+            var result = await Mediator.Send(new CreateApplicationCommand {Dto = application});
+            return Json(result);
         }
     }
 }
