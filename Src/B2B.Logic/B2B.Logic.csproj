@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="BusinessLogic\ApplicationFlow\Command" />
+    <Folder Include="BusinessLogic\Blacklist\Command" />
     <Folder Include="BusinessLogic\User\Command\" />
   </ItemGroup>
 
