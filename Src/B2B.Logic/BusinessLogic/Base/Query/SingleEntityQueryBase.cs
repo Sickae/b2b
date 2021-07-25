@@ -38,7 +38,7 @@ namespace B2B.Logic.BusinessLogic.Base.Query
             var query = Session.QueryOver(() => RootAlias);
             var junction = SetupWhere(request);
 
-            if (junction?.GetProjections()?.Length > 0)
+            if (junction != null)
                 query = query.Where(junction);
 
             if (singleRequest.Id > 0)
