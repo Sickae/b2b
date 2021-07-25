@@ -24,25 +24,19 @@ namespace B2B.DatabaseCreator.TestDataSetup
                     new ApplicationFlowQuestion
                     {
                         Code = "class",
-                        Type = ApplicationFlowQuestionType.Text,
-                        Text = "What class are you playing as your main?"
-                    },
-                    new ApplicationFlowQuestion
-                    {
-                        Code = "second_question",
                         Type = ApplicationFlowQuestionType.Choice,
-                        Text = "Second question",
+                        Text = "What class are you playing as your main?",
                         Choices = new ApplicationFlowQuestionChoice[]
                         {
                             new() {Value = "Blader", Ordinal = 0},
                             new() {Value = "Wizard", Ordinal = 1},
                             new() {Value = "Warrior", Ordinal = 2},
-                            new() {Value = "Gladiator", Ordinal = 2},
-                            new() {Value = "Force Shielder", Ordinal = 3},
-                            new() {Value = "Force Archer", Ordinal = 4},
-                            new() {Value = "Force Gunner", Ordinal = 5},
-                            new() {Value = "Force Blader", Ordinal = 6},
-                            new() {Value = "Dark Mage", Ordinal = 7},
+                            new() {Value = "Gladiator", Ordinal = 3},
+                            new() {Value = "Force Shielder", Ordinal = 4},
+                            new() {Value = "Force Archer", Ordinal = 5},
+                            new() {Value = "Force Gunner", Ordinal = 6},
+                            new() {Value = "Force Blader", Ordinal = 7},
+                            new() {Value = "Dark Mage", Ordinal = 8},
                         }
                     },
                     new ApplicationFlowQuestion
