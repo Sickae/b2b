@@ -20,15 +20,15 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: |
-        dotnet restore B2B.DataAccess.csproj
-        dotnet restore B2B.DatabaseCreator.csproj
-        dotnet restore B2B.Logic.csproj
-        dotnet restore B2B.Shared/B2B.Shared.csproj
-        dotnet restore B2B.Web/B2B.Web.csproj
+        dotnet restore Src/B2B.DataAccess/B2B.DataAccess.csproj
+        dotnet restore Src/B2B.DatabaseCreator/B2B.DatabaseCreator.csproj
+        dotnet restore Src/B2B.Logic/B2B.Logic.csproj
+        dotnet restore Src/B2B.Shared/B2B.Shared.csproj
+        dotnet restore Src/B2B.Web/B2B.Web.csproj
     - name: Build
       run: |
-        dotnet build --no-restore B2B.DataAccess/B2B.DataAccess.csproj
-        dotnet build --no-restore B2B.DatabaseCreator/B2B.DatabaseCreator.csproj
-        dotnet build --no-restore B2B.Logic/B2B.Logic.csproj
-        dotnet build --no-restore B2B.Shared/B2B.Shared.csproj
-        dotnet build --no-restore B2B.Web/B2B.Web.csproj
+        dotnet build --no-restore Src/B2B.DataAccess/B2B.DataAccess.csproj
+        dotnet build --no-restore Src/B2B.DatabaseCreator/B2B.DatabaseCreator.csproj
+        dotnet build --no-restore Src/B2B.Logic/B2B.Logic.csproj
+        dotnet build --no-restore Src/B2B.Shared/B2B.Shared.csproj
+        dotnet build --no-restore Src/B2B.Web/B2B.Web.csproj
