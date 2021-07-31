@@ -10,6 +10,6 @@ namespace B2B.Logic.Identity
 
         public bool IsActivated { get; set; }
 
-        public int ApplicationFlowId { get; set; }
+        public int? ApplicationFlowId { get; set; }
     }
 }

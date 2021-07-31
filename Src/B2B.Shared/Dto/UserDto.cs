@@ -10,7 +10,7 @@ namespace B2B.Shared.Dto
         public string SecurityStamp { get; set; }
         public string InGameName { get; set; }
         public string ApplicationJson { get; set; }
-        public int ApplicationFlowId { get; set; }
+        public int? ApplicationFlowId { get; set; }
         public bool IsActivated { get; set; }
         public DateTime? LockoutEnd { get; set; }
     }

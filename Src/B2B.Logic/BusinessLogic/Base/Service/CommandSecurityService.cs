@@ -36,6 +36,7 @@ namespace B2B.Logic.BusinessLogic.Base.Service
             {
                 var idProp = dtoProperties.FirstOrDefault(x => x.Name == $"{prop.Name}Id");
                 var id = idProp?.GetValue(dto);
+                if (id == null) continue;
                 var loadedEntity = session.Load(prop.PropertyType.Name, id);
 
                 if (loadedEntity != null)
