@@ -21,4 +21,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Src
     - name: Build
-      run: dotnet build --no-restore Src
+      run: dotnet build Src
